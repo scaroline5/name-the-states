@@ -15,21 +15,19 @@ turtle.shape(us_map)
 # Get the data
 data = pandas.read_csv("50_states.csv")
 state_list = data.state.tolist()
-
-# Set the Score
-correct_answers = 0
-total_states = len(data)
+user_guesses = []
 
 # Use a loop to continuously guess
-while correct_answers < 50:
+while len(user_guesses) < 50:
 
     # Prompt the user to type a State
-    answer_state = screen.textinput(title=f"{correct_answers}/{total_states} - Guess the state", prompt="Type a state "
+    answer_state = screen.textinput(title=f"{len(user_guesses)}/{len(data)} - Guess the state", prompt="Type a state "
                                                                                                         "name.")
-
     # Check if the guess is correct
     if answer_state in state_list:
         state_data = data[data.state == answer_state]
+        # Record correct guesses in a list
+        user_guesses.append(state_data.state.item())
         # Write the state into the map
         t = turtle.Turtle()
         t.hideturtle()
@@ -37,4 +35,3 @@ while correct_answers < 50:
         t.color("black")
         t.goto(int(state_data.x), int(state_data.y))
         t.write(state_data.state.item())
-        correct_answers += 1
