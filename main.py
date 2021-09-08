@@ -21,6 +21,11 @@ correct_answers = 0
 total_states = len(data)
 
 # Prompt the user to type a State
-answer_state = screen.textinput(title=f"{correct_answers}/{total_states} - Guess the state", prompt="Type a state name.").lower()
+answer_state = screen.textinput(title=f"{correct_answers}/{total_states} - Guess the state", prompt="Type a state name.")
 
-
+# Check if the guess is correct
+state_list = data.state.tolist()
+for state in state_list:
+    if answer_state == state:
+        correct_answers += 1
+        print(correct_answers)
