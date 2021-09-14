@@ -23,6 +23,11 @@ while len(user_guesses) < 50:
     # Prompt the user to type a State
     answer_state = screen.textinput(title=f"{len(user_guesses)}/{len(data)} - Guess the state",
                                     prompt="Type a state name.").title()
+
+    # Stop the game if requested
+    if answer_state == "Exit":
+        break
+
     # Check if the guess is correct
     if answer_state in state_list:
         state_data = data[data.state == answer_state]
@@ -36,4 +41,12 @@ while len(user_guesses) < 50:
         t.goto(int(state_data.x), int(state_data.y))
         t.write(state_data.state.item())
 
-screen.exitonclick()
+# Save Missing States into a CSV
+missing_states = []
+for state in state_list:
+    if state not in user_guesses:
+        missing_states.append(state)
+
+
+data_frame = pandas.DataFrame(missing_states)
+data_frame.to_csv("missing_states.csv")
