@@ -21,8 +21,8 @@ user_guesses = []
 while len(user_guesses) < 50:
 
     # Prompt the user to type a State
-    answer_state = screen.textinput(title=f"{len(user_guesses)}/{len(data)} - Guess the state", prompt="Type a state "
-                                                                                                        "name.")
+    answer_state = screen.textinput(title=f"{len(user_guesses)}/{len(data)} - Guess the state",
+                                    prompt="Type a state name.").title()
     # Check if the guess is correct
     if answer_state in state_list:
         state_data = data[data.state == answer_state]
@@ -35,3 +35,5 @@ while len(user_guesses) < 50:
         t.color("black")
         t.goto(int(state_data.x), int(state_data.y))
         t.write(state_data.state.item())
+
+screen.exitonclick()
