@@ -26,6 +26,8 @@ while len(user_guesses) < 50:
 
     # Stop the game if requested
     if answer_state == "Exit":
+        # Save Missing States into a CSV
+        missing_states = [state for state in state_list if state not in user_guesses]
         break
 
     # Check if the guess is correct
@@ -41,11 +43,6 @@ while len(user_guesses) < 50:
         t.goto(int(state_data.x), int(state_data.y))
         t.write(state_data.state.item())
 
-# Save Missing States into a CSV
-missing_states = []
-for state in state_list:
-    if state not in user_guesses:
-        missing_states.append(state)
 
 
 data_frame = pandas.DataFrame(missing_states)
